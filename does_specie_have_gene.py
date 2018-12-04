@@ -1,4 +1,25 @@
 #======================================================================#
+#							HOW TO USE
+#======================================================================#
+
+# python -i pathtoinputfile	-o	pathtooutputfile
+
+#======================================================================#
+#							DESCRIPTION
+#======================================================================#
+# The goal of this tool is to take a file where each line corresponds to
+# a gene; for each gene, all its homologous genes in various species are
+# indicates in the following manner :
+# spec1|homolog1genA spec2|homolog1genA spec2|homolog2genA ...
+# The output has species names as colomns and genes as rows
+# For each combination of species and genes, if an homologous gene has 
+# been found for this specie, the value 1, and 0 otherwise
+# The output looks like this :
+# #	spec1	spec2	spec3	spec4	spec5	spec6	spec7	spec8	...
+# gene1	0	1	0	0	0	1	1	0
+# gene2	1	1	0	1	0	0	0	0
+
+#======================================================================#
 #							ARGUMENTS
 #======================================================================#
 
@@ -10,7 +31,10 @@ import sys
 #======================================================================#
 
 def parse_args():
-	""" Gets the arguments from the command line."""
+	""" 
+	Gets the arguments from the command line.
+	"""
+	
 	parser = argparse.ArgumentParser()
 	parser.add_argument('-i', '--infile', required=True,
 				help="""input : one line per gene, and in each line spec|homologous genes, all of them separated by a space""")
@@ -31,6 +55,10 @@ def parse_args():
 #				are a list, in the same order as the spec_list
 #	outname : path to output file
 def write_bool_genes(bool_gene, spec_list, outname) :
+	"""
+	Write the table with 0/1 for each combination of genes and species
+	"""
+	
 	outfile = open(outname, "w")
 	
 	#------------- Write first line with species names ----------------#
